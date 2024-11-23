@@ -1,12 +1,20 @@
-// import "./App.css";
-// // eslint-disable-next-line import/extensions
-// import logo from "./logo.svg";
-// import React from "react";
+import Cart from "components/Cart/Cart";
+import PageNotFound from "components/commons/PageNotFound";
+import { Route, Switch, Redirect } from "react-router-dom";
+import routes from "routes";
+import Checkout from "components/Checkout";
+import Product from "./components/product";
+import ProductList from "./components/productList";
 
-// import { Button } from "neetoui";
+const App = () => (
+  <Switch>
+    <Redirect exact from={routes.root} to={routes.products.index} />
+    <Route exact component={Product} path={routes.products.show} />
+    <Route exact component={ProductList} path={routes.products.index} />
+    <Route exact component={Cart} path={routes.cart} />
+    <Route exact component={Checkout} path={routes.checkout} />
+    <Route component={PageNotFound} path="*" />
+  </Switch>
+);
 
-// const App = () => <Button label="Click me" style="secondary" />;
-import Product from "./components/Product";
-
-const App = () => <Product />;
 export default App;
