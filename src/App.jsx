@@ -1,8 +1,9 @@
 import Cart from "components/Cart/Cart";
+import Checkout from "components/Checkout";
 import PageNotFound from "components/commons/PageNotFound";
 import { Route, Switch, Redirect } from "react-router-dom";
 import routes from "routes";
-import Checkout from "components/Checkout";
+
 import Product from "./components/product";
 import ProductList from "./components/productList";
 

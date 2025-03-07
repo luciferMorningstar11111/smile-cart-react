@@ -1,4 +1,4 @@
-const reportWebVitals = onPerfEntry => {
+const reportWebVitals = (onPerfEntry) => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
     // eslint-disable-next-line promise/prefer-await-to-then
     import("web-vitals").then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {

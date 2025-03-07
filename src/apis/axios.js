@@ -1,8 +1,8 @@
 import axios from "axios";
-import { keysToCamelCase, serializeKeysToSnakeCase } from "neetocist";
-import { evolve } from "ramda";
 import { t } from "i18next";
+import { keysToCamelCase, serializeKeysToSnakeCase } from "neetocist";
 import { Toastr } from "neetoui";
+import { evolve } from "ramda";
 
 const requestInterceptors = () => {
   axios.interceptors.request.use((request) =>
@@ -17,29 +17,14 @@ const transformResponseKeysToCamelCase = (response) => {
   if (response.data) response.data = keysToCamelCase(response.data);
 };
 
-const responseInterceptors = () => {
-  axios.interceptors.response.use((response) =>
-    transformResponseKeysToCamelCase(response)
-  );
-};
-
-export default function initializeAxios() {
-  // ...
-  requestInterceptors();
-}
-
-// ..
-
-// ..
-
-const shouldShowToastr = response =>
+const shouldShowToastr = (response) =>
   typeof response === "object" && response?.noticeCode;
 
-const showSuccessToastr = response => {
+const showSuccessToastr = (response) => {
   if (shouldShowToastr(response.data)) Toastr.success(response.data);
 };
 
-const showErrorToastr = error => {
+const showErrorToastr = (error) => {
   if (error.message === t("error.networkError")) {
     Toastr.error(t("error.noInternetConnection"));
   } else if (error.response?.status !== 404) {
@@ -47,19 +32,15 @@ const showErrorToastr = error => {
   }
 };
 
-const transformResponseKeysToCamelCase = response => {
-  if (response.data) response.data = keysToCamelCase(response.data);
-};
-
 const responseInterceptors = () => {
   axios.interceptors.response.use(
-    response => {
+    (response) => {
       transformResponseKeysToCamelCase(response);
       showSuccessToastr(response);
 
       return response.data;
     },
-    error => {
+    (error) => {
       showErrorToastr(error);
 
       return Promise.reject(error);
@@ -67,4 +48,7 @@ const responseInterceptors = () => {
   );
 };
 
-// ..
+export default function initializeAxios() {
+  requestInterceptors();
+  responseInterceptors();
+}

@@ -4,7 +4,7 @@ export const setToLocalStorage = (key, value) => {
   } else localStorage.removeItem(key);
 };
 
-export const getFromLocalStorage = key => {
+export const getFromLocalStorage = (key) => {
   try {
     const value = localStorage.getItem(key);
 

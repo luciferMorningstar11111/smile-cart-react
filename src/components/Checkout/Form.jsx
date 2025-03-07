@@ -20,7 +20,7 @@ const Form = () => {
     country_code: country.code,
   });
 
-  const handleChangeCountry = country => {
+  const handleChangeCountry = (country) => {
     setFieldValue("country", country);
     setFieldValue("state", null);
   };

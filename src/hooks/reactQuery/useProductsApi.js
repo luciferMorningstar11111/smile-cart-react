@@ -20,7 +20,7 @@ export const useFetchProducts = (params) =>
     keepPreviousData: true,
   });
 
-export const useFetchCartProducts = slugs => {
+export const useFetchCartProducts = (slugs) => {
   const { t } = useTranslation();
   const { cartItems, setSelectedQuantity } = useCartItemsStore();
 

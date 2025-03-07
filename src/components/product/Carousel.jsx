@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-// import classNames from "classnames";
 import { useShowProduct } from "hooks/reactQuery/useProductsApi";
-import { useParams } from "react-router-dom";
-import { append } from "ramda";
-
 import { Left, Right } from "neetoicons";
 import { Button } from "neetoui";
+import { append } from "ramda";
+import { useParams } from "react-router-dom";
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,27 +12,32 @@ const Carousel = () => {
   const {
     data: {
       image_url: imageUrl,
-      imageUrls: partialImageUrls,
+      image_urls: partialImageUrls,
       slug: title,
     } = {},
   } = useShowProduct(slug);
-  const imageUrls = append(imageUrl, partialImageUrls);
 
-  const handleNext = () => {
+  // Ensure imageUrls is always an array
+  const imageUrls = append(imageUrl, partialImageUrls || []);
+  console.log("ImageUrls", imageUrl);
+  console.log("ImageUrls", partialImageUrls);
+  const handleNext = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % imageUrls.length);
-    console.log(imageUrls.length);
-  }
+  }, [imageUrls.length]);
 
-  const handlePrevious = () =>
+  const handlePrevious = () => {
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + imageUrls.length) % imageUrls.length
     );
+  };
 
   useEffect(() => {
-    const interval = setInterval(handleNext, 3000);
+    if (imageUrls.length > 1) {
+      const interval = setInterval(handleNext, 3000);
 
-    return () => clearInterval(interval);
-  }, []);
+      return () => clearInterval(interval);
+    }
+  }, []); // Correct dependency array
 
   return (
     <div className="flex items-center">

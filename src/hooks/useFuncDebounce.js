@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-const useFuncDebounce = func => {
+const useFuncDebounce = (func) => {
   const timer = useRef(null);
   const debouncedFunc = (...args) => {
     clearTimeout(timer.current);

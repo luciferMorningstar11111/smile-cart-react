@@ -1,9 +1,13 @@
 import { Typography, Tag } from "neetoui";
 import useCartItemsStore from "stores/useCartItemsStore";
 
-const Product = ({ name, image_url:imageUrl, offer_price:offerPrice, slug }) => {
+const Product = ({
+  name,
+  image_url: imageUrl,
+  offer_price: offerPrice,
+  slug,
+}) => {
   const { [slug]: selectedQuantity } = useCartItemsStore.pick("cartItems");
-
 
   return (
     <div className="mt-3 flex">
