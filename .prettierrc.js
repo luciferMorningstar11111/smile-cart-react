@@ -12,6 +12,7 @@ module.exports = {
   bracketSameLine: false,
   proseWrap: "always",
   endOfLine: "lf",
+  importOrder: [],
 };
 module.exports = {
   tailwindConfig: "./tailwind.config.js",

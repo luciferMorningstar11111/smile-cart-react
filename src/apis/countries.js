@@ -5,6 +5,7 @@ const fetch = async () => {
     const response = await axios.get(
       "https://smile-cart-backend-staging.neetodeployapp.com/countries"
     );
+
     // console.log("Fetched countries:", response.data);
     return response.data; // Assuming the countries list is in `data`
   } catch (error) {

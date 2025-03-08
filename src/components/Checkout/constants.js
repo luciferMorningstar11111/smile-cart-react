@@ -1,3 +1,6 @@
+import { t } from "i18next";
+import * as yup from "yup";
+
 export const CHECKOUT_FORM_INITIAL_VALUES = {
   email: "",
   country: { code: "US", name: "United States" },
@@ -9,8 +12,6 @@ export const CHECKOUT_FORM_INITIAL_VALUES = {
   state: null,
   zipCode: "",
 };
-import { t } from "i18next";
-import * as yup from "yup";
 export const CHECKOUT_FORM_VALIDATION_SCHEMA = yup.object().shape({
   email: yup
     .string()

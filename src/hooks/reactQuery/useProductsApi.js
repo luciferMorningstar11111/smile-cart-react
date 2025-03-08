@@ -53,5 +53,6 @@ export const useFetchCartProducts = (slugs) => {
 
   const data = responses.map(prop("data")).filter(Boolean);
   const isLoading = existsBy({ isLoading: true }, responses);
+
   return { data, isLoading };
 };

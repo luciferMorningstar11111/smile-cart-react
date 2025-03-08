@@ -32,12 +32,14 @@ const Carousel = () => {
   };
 
   useEffect(() => {
-    if (imageUrls.length > 1) {
-      const interval = setInterval(handleNext, 3000);
+    if (imageUrls.length <= 1) return; // Ensures consistent return
 
-      return () => clearInterval(interval);
-    }
-  }, []); // Correct dependency array
+    const interval = setInterval(handleNext, 3000);
+
+    // eslint-disable-next-line consistent-return
+    return () => clearInterval(interval);
+  }, []);
+  // Correct dependency array
 
   return (
     <div className="flex items-center">
