@@ -1,16 +1,11 @@
-import { useEffect, useState, useContext } from "react";
-
 import Header from "components/commons/Header";
-import { append } from "ramda";
 import AddToCart from "components/productList/AddToCart";
-
-import productsApi from "apis/products";
+import { Typography, Spinner, Button } from "neetoui";
+import { append } from "ramda";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import useSelectedQuantity from "src/components/hooks/useSelectedQuantity";
 import { useShowProduct } from "src/hooks/reactQuery/useProductsApi";
 import routes from "src/routes";
-import { LeftArrow } from "@bigbinary/neeto-icons";
-import { Typography, Spinner, Button ,Pagination} from "neetoui";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
-import useSelectedQuantity from "src/components/hooks/useSelectedQuantity";
 
 import Carousel from "./Carousel";
 
@@ -30,7 +25,7 @@ const Product = () => {
     available_quantity: availableQuantity,
     image_url,
   } = product;
-
+  console.log("product", product);
   const totalDiscounts = mrp - offer_price;
 
   const discountPercentage = ((totalDiscounts / mrp) * 100).toFixed(1);

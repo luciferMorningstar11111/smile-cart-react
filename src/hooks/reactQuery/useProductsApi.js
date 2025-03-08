@@ -20,7 +20,7 @@ export const useFetchProducts = (params) =>
     keepPreviousData: true,
   });
 
-export const useFetchCartProducts = slugs => {
+export const useFetchCartProducts = (slugs) => {
   const { t } = useTranslation();
   const { cartItems, setSelectedQuantity } = useCartItemsStore();
 
@@ -53,5 +53,6 @@ export const useFetchCartProducts = slugs => {
 
   const data = responses.map(prop("data")).filter(Boolean);
   const isLoading = existsBy({ isLoading: true }, responses);
+
   return { data, isLoading };
 };

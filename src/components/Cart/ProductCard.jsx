@@ -1,10 +1,9 @@
-import ProductQuantity from "components/commons/ProductQuantity";
-import { Typography } from "neetoui";
-import { Delete } from "neetoicons";
-import { prop } from "ramda";
-import useCartItemsStore from "stores/useCartItemsStore";
 import { useState } from "react";
-import { Alert } from "neetoui";
+
+import { Delete } from "neetoicons";
+import { Typography, Alert } from "neetoui";
+import ProductQuantity from "src/components/commons/ProductQuantity";
+import useCartItemsStore from "stores/useCartItemsStore";
 
 const ProductCard = ({
   slug,
@@ -16,6 +15,10 @@ const ProductCard = ({
 }) => {
   const [shouldShowDeleteAlert, setShouldShowDeleteAlert] = useState(false);
   const removeCartItem = useCartItemsStore.pickFrom();
+
+  const [_selectedQuantity, _setSelectedQuantity] = useCartItemsStore(
+    (state) => [state.cartItems[slug], state.setSelectedQuantity]
+  );
 
   return (
     <div className="neeto-ui-rounded neeto-ui-border-black border p-2">
@@ -53,7 +56,7 @@ const ProductCard = ({
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default ProductCard;

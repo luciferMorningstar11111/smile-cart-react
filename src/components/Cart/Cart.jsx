@@ -1,48 +1,46 @@
-import { useEffect, useState } from "react";
-
-import productsApi from "apis/products";
 import Header from "components/commons/Header";
 import { MRP } from "components/constants";
-import { Toastr, Spinner } from "neetoui";
+import { cartTotalOf } from "components/utils";
+import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
+import i18n from "i18next";
+import { Spinner, NoData } from "neetoui";
 import { keys } from "ramda";
 import useCartItemsStore from "stores/useCartItemsStore";
-import ProductCard from "./ProductCard";
-import { cartTotalOf } from "components/utils";
-import PriceCard from "./PriceCard";
-import i18n from "i18next";
 import withTitle from "utils/withTitle";
-import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
-import { NoData } from "neetoui";
+
+import PriceCard from "./PriceCard";
+import ProductCard from "./ProductCard";
 
 const Cart = () => {
-  const { cartItems, setSelectedQuantity } = useCartItemsStore((state) => ({
-    cartItems: state.cartItems,
-    setSelectedQuantity: state.setSelectedQuantity,
-  }));
+  // const { cartItems, setSelectedQuantity } = useCartItemsStore((state) => ({
+  //   cartItems: state.cartItems,
+  //   setSelectedQuantity: state.setSelectedQuantity,
+  // }));
+  const cartItems = useCartItemsStore((state) => state.cartItems);
+  console.log("cartItems", cartItems);
+  // console.log("setSelectedQuantity", setSelectedQuantity);
 
   const slugs = keys(cartItems);
+
   const { data: products = [], isLoading } = useFetchCartProducts(slugs);
-
-
+  console.log("Products", products);
   const totalMrp = cartTotalOf(products, MRP);
   const totalOfferPrice = cartTotalOf(products, "offer_price");
-console.log(products,"CartProducts");
 
   if (isLoading) return <Spinner />;
 
-  if (products.length === 0)
+  if (products.length === 0) {
     return (
-   <>
-      <Header title="My Cart" />
-    <div className="flex justify-center items-center h-full">
-      <div className="flex w-full items-center justify-center">
-        <NoData
-          title="There are no products to show"
-        />
-      </div>
-    </div>
-   </>
-  );
+      <>
+        <Header title="My Cart" />
+        <div className="flex h-full items-center justify-center">
+          <div className="flex w-full items-center justify-center">
+            <NoData title="There are no products to show" />
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

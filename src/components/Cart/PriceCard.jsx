@@ -1,10 +1,9 @@
-import { Trans } from "react-i18next";
 import classNames from "classnames";
-import { Typography ,Button} from "neetoui";
+import { Typography, Button } from "neetoui";
 import { gt, keys } from "ramda";
+import { Trans, useTranslation } from "react-i18next";
 import routes from "src/routes";
 import useCartItemsStore from "stores/useCartItemsStore";
-import { useTranslation } from "react-i18next";
 
 const PriceCard = ({ totalMrp, totalOfferPrice }) => {
   const totalDiscounts = totalMrp - totalOfferPrice;
@@ -41,8 +40,7 @@ const PriceCard = ({ totalMrp, totalOfferPrice }) => {
               components={{ span: <span /> }}
               i18nKey="offerPrice"
               values={{ offerPrice: totalOfferPrice }}
-        />
-  
+            />
           </Typography>
           <span className="neeto-ui-text-gray-500 text-sm">
             {t("itemCount", { count: itemsCount })}

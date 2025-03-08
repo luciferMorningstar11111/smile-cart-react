@@ -1,11 +1,10 @@
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import { LeftArrow } from "neetoicons";
 import { Typography } from "neetoui";
-import { useHistory } from "react-router-dom";
-import useCartItemsStore from "stores/useCartItemsStore";
 import { keys } from "ramda";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { useHistory, Link } from "react-router-dom";
 import routes from "routes";
-import { Link } from "react-router-dom";
+import useCartItemsStore from "stores/useCartItemsStore";
 
 const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
   const cartItemsCount = useCartItemsStore(

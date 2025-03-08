@@ -1,24 +1,19 @@
-import useSelectedQuantity from "components/hooks/useSelectedQuantity";
-import { Button } from "neetoui";
-import { paths } from "ramda";
-import useCartItemsStore from "stores/useCartItemsStore";
-import { shallow } from "zustand/shallow";
-import TooltipWrapper from "./TooltipWrapper";
-import { Input } from "neetoui";
-import { Toastr } from "neetoui";
-import { parse } from "browserslist";
-import { VALID_COUNT_REGEX } from "components/constants";
 import { useRef } from "react";
+
+import { VALID_COUNT_REGEX } from "components/constants";
+import useSelectedQuantity from "components/hooks/useSelectedQuantity";
 import { useShowProduct } from "hooks/reactQuery/useProductsApi";
+import { Input, Toastr, Button } from "neetoui";
+
+import TooltipWrapper from "./TooltipWrapper";
 
 const ProductQuantity = ({ slug }) => {
   const countInputFocus = useRef(null);
   const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
-
-
+  console.log("selectedQuantity", selectedQuantity);
   const { data: product = {} } = useShowProduct(slug);
   const { available_quantity: availableQuantity } = product;
-  const parsedSelectedQuantity = parseInt(selectedQuantity) || 0;
+  const parsedSelectedQuantity = Number(selectedQuantity) || 0;
   const isNotValidQuantity = parsedSelectedQuantity >= availableQuantity;
 
   const preventNavigation = (e) => {

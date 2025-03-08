@@ -1,5 +1,3 @@
-import { check } from "prettier";
-
 const routes = {
   root: "/",
   products: {

@@ -6,7 +6,7 @@ const buildPathGroupsBasedOnWebpackAliases = ({
 }) => {
   const rootOfProject = __dirname + `/../../`;
 
-  const isFile = filePath =>
+  const isFile = (filePath) =>
     fs.existsSync(filePath) && fs.lstatSync(filePath).isFile();
 
   const webpackAliasPath = rootOfProject + customAliasPath;

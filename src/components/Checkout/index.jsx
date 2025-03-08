@@ -1,24 +1,30 @@
+import { useRef, useState } from "react";
+
+import { Button } from "@bigbinary/neetoui";
+import {
+  useFetchCountries,
+  useCreateOrder,
+} from "hooks/reactQuery/useCheckoutApi";
+import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
 import i18n from "i18next";
 import { LeftArrow } from "neetoicons";
+import { Typography, Checkbox } from "neetoui";
+import { Form as NeetoUIForm } from "neetoui/formik";
+import { isEmpty, keys } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import withTitle from "utils/withTitle";
-import { useFetchCountries, useCreateOrder, } from "hooks/reactQuery/useCheckoutApi";
-import { Button } from "@bigbinary/neetoui";
-import { Form as NeetoUIForm } from "neetoui/formik";
-import { Typography, Checkbox } from "neetoui";
-import { useRef, useState } from "react";
+import routes from "src/routes";
 import useCartItemsStore from "stores/useCartItemsStore";
-import Items from "./Items";
 import { setToLocalStorage, getFromLocalStorage } from "utils/storage";
+import withTitle from "utils/withTitle";
+
 import {
   CHECKOUT_FORM_INITIAL_VALUES,
   CHECKOUT_FORM_VALIDATION_SCHEMA,
   CHECKOUT_LOCAL_STORAGE_KEY,
 } from "./constants";
 import Form from "./Form";
-import { isEmpty, keys } from "ramda";
-import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
+import Items from "./Items";
 
 const Checkout = () => {
   const timerRef = useRef(null);
@@ -39,7 +45,7 @@ const Checkout = () => {
     }, 1500);
   };
 
-  const handleSubmit = values => {
+  const handleSubmit = (values) => {
     const dataToPersist = checkboxRef.current.checked ? values : null;
     setIsSubmitDisabled(true);
 
@@ -57,7 +63,7 @@ const Checkout = () => {
   const { t } = useTranslation();
 
   const history = useHistory();
-  const { isLoading } = useFetchCountries();
+  // const { isLoading } = useFetchCountries();
   const handleRedirect = () => {
     if (timerRef.current) {
       history.push(routes.root);
@@ -67,15 +73,17 @@ const Checkout = () => {
       history.goBack();
     }
   };
-  if (isLoading)
+  if (isLoadingCountries || isLoadingProducts) {
     return (
       <Button
-    label="Button"
-    onClick={function noRefCheck() { }}
-    style="primary"
-  />);
+        label="Button"
+        style="primary"
+        onClick={function noRefCheck() {}}
+      />
+    );
+  }
 
-if (isEmpty(cartItems)) return history.push(routes.root);
+  if (isEmpty(cartItems)) return history.push(routes.root);
 
   return (
     <NeetoUIForm
@@ -104,7 +112,6 @@ if (isEmpty(cartItems)) return history.push(routes.root);
             </Typography>
           </div>
           <div className="mt-8 space-y-4">
-
             <Form />
             <Checkbox
               defaultChecked
@@ -115,14 +122,6 @@ if (isEmpty(cartItems)) return history.push(routes.root);
         </div>
         <div className="neeto-ui-bg-gray-300 h-screen w-1/2 pt-10">
           <Items {...{ isSubmitDisabled }} />
-          {/* <div className="mt-auto flex justify-center">
-            <Button
-              className="bg-neutral-800 w-1/3 justify-center"
-              disabled={isSubmitDisabled}
-              label={t("confirmOrder")}
-              type="submit"
-            />
-          </div> */}
         </div>
       </div>
     </NeetoUIForm>
