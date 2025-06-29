@@ -94,7 +94,7 @@ const ProductList = () => {
         {isEmpty(products) ? (
           <NoData className="h-full w-full" title="No products to show" />
         ) : (
-          <div className="grid grid-cols-2 justify-items-center gap-y-8 p-4 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2  justify-items-center gap-y-8 p-4 md:grid-cols-3 md:gap-x-6 lg:grid-cols-4 lg:gap-x-8">
             {products.map((product) => (
               <ProductListItem
                 key={product.slug}

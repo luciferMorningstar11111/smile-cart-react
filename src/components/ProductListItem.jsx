@@ -15,13 +15,11 @@ const ProductListItem = ({
   available_quantity: availableQuantity,
 }) => (
   <Link
-    className="neeto-ui-border-black neeto-ui-rounded-xl flex w-48 flex-col items-center justify-between border p-4"
+    className="neeto-ui-border-black neeto-ui-rounded-xl flex w-40 flex-col items-center justify-between border p-4 md:w-44 lg:w-48"
     to={buildUrl(routes.products.show, { slug })}
   >
-    <img alt={name} className="h-40 w-40" src={image_url} />
-    <Typography className="text-center" weight="semibold">
-      {name}
-    </Typography>
+    <img alt={name} className="h-40 w-40 object-contain" src={image_url} />
+    <Typography className="mt-2 text-center font-semibold">{name}</Typography>
     <Typography>${offer_price}</Typography>
     <AddToCart {...{ slug, availableQuantity, isInCart, toggleIsInCart }} />
   </Link>
