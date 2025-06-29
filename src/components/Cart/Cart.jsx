@@ -27,7 +27,14 @@ const Cart = () => {
   const totalMrp = cartTotalOf(products, MRP);
   const totalOfferPrice = cartTotalOf(products, "offer_price");
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return(
+    <Spinner
+        className="absolute top-1/2 left-1/2"
+        size="large"
+        strokeWidth={2}
+        style="primary"
+      />
+    );
 
   if (products.length === 0) {
     return (
