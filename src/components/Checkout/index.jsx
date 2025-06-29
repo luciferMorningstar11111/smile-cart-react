@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import { Button, Spinner } from "@bigbinary/neetoui";
+import { Spinner } from "@bigbinary/neetoui";
 import {
   useFetchCountries,
   useCreateOrder,
@@ -25,7 +25,6 @@ import {
 } from "./constants";
 import Form from "./Form";
 import Items from "./Items";
-import routes from "src/routes";
 
 const Checkout = () => {
   const timerRef = useRef(null);
@@ -77,7 +76,7 @@ const Checkout = () => {
   if (isLoadingCountries || isLoadingProducts) {
     return (
       <Spinner
-        className="absolute top-1/2 left-1/2"
+        className="absolute left-1/2 top-1/2"
         size="large"
         strokeWidth={2}
         style="primary"
@@ -127,7 +126,7 @@ const Checkout = () => {
         </div>
       </div>
     </NeetoUIForm>
-  );    
+  );
 };
 
 export default withTitle(Checkout, i18n.t("checkout"));
