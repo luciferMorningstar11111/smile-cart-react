@@ -37,22 +37,27 @@ const ProductCard = ({
             className="cursor-pointer"
             onClick={() => setShouldShowDeleteAlert(true)}
           />
-          <Alert
-            isOpen={shouldShowDeleteAlert}
-            submitButtonLabel="Yes, remove"
-            title="Remove item?"
-            message={
-              <Typography>
-                You are removing <strong>{name}</strong> from cart. Do you want
-                to continue?
-              </Typography>
-            }
-            onClose={() => setShouldShowDeleteAlert(false)}
-            onSubmit={() => {
-              removeCartItem(slug);
-              setShouldShowDeleteAlert(false);
-            }}
-          />
+          {shouldShowDeleteAlert && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+              <Alert
+                className="!w-full !max-w-[90vw] sm:!max-w-md"
+                isOpen={shouldShowDeleteAlert}
+                submitButtonLabel="Yes, remove"
+                title="Remove item?"
+                message={
+                  <Typography>
+                    You are removing <strong>{name}</strong> from cart. Do you
+                    want to continue?
+                  </Typography>
+                }
+                onClose={() => setShouldShowDeleteAlert(false)}
+                onSubmit={() => {
+                  removeCartItem(slug);
+                  setShouldShowDeleteAlert(false);
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

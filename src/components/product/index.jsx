@@ -64,10 +64,15 @@ const Product = () => {
           <Typography className="font-semibold text-green-600">
             {discountPercentage}% off
           </Typography>
-          <div className="flex space-x-10">
-            <AddToCart {...{ availableQuantity, slug }} />
+          <div className="flex flex-col items-start space-y-2  sm:ml-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+            <div className="w-32">
+              <AddToCart
+                className="neeto-ui-btn bg-neutral-800 hover:bg-neutral-950 neeto-ui-btn--style-primary neeto-ui-btn--size-large w-32"
+                {...{ availableQuantity, slug }}
+              />
+            </div>
             <Button
-              className="bg-neutral-800 hover:bg-neutral-950"
+              className="bg-neutral-800 hover:bg-neutral-950 w-32"
               label="Buy now"
               size="large"
               to={routes.checkout}
