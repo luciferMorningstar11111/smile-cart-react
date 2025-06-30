@@ -12,18 +12,10 @@ import PriceCard from "./PriceCard";
 import ProductCard from "./ProductCard";
 
 const Cart = () => {
-  // const { cartItems, setSelectedQuantity } = useCartItemsStore((state) => ({
-  //   cartItems: state.cartItems,
-  //   setSelectedQuantity: state.setSelectedQuantity,
-  // }));
   const cartItems = useCartItemsStore((state) => state.cartItems);
-  console.log("cartItems", cartItems);
-  // console.log("setSelectedQuantity", setSelectedQuantity);
-
   const slugs = keys(cartItems);
 
   const { data: products = [], isLoading } = useFetchCartProducts(slugs);
-  console.log("Products", products);
   const totalMrp = cartTotalOf(products, MRP);
   const totalOfferPrice = cartTotalOf(products, "offer_price");
 
@@ -54,14 +46,21 @@ const Cart = () => {
   return (
     <>
       <Header title="My Cart" />
-      <div className="mt-10 flex justify-center space-x-10">
-        <div className="w-1/3 space-y-5">
+      <div className="mt-10 flex flex-col gap-10 px-4 md:flex-row md:justify-center md:gap-10">
+        {/* Product list */}
+        <div className="w-full space-y-5 md:w-1/3">
           {products.map((product) => (
             <ProductCard key={product.slug} {...product} />
           ))}
+          {/* PriceCard will appear below products on mobile (inside product list div),
+        and on the right on desktop (moved out using md:absolute or md:flex) */}
+          <div className="block md:hidden">
+            {totalMrp > 0 && <PriceCard {...{ totalMrp, totalOfferPrice }} />}
+          </div>
         </div>
+        {/* PriceCard for desktop */}
         {totalMrp > 0 && (
-          <div className="w-1/4">
+          <div className="hidden md:block md:w-1/4">
             <PriceCard {...{ totalMrp, totalOfferPrice }} />
           </div>
         )}
